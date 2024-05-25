@@ -1,0 +1,20 @@
+{
+  "name": "tech-blog",
+  "version": "1.0.0",
+  "description": "tech blog",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cawooda/tech-blog.git"
+  },
+  "author": "Andrew Cawood",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cawooda/tech-blog/issues"
+  },
+  "homepage": "https://github.com/cawooda/tech-blog#readme"
+}
