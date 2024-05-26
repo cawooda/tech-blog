@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
+    "watch": "nodemon server.js",
     "start": "node server.js"
   },
   "repository": {
@@ -16,5 +17,14 @@
   "bugs": {
     "url": "https://github.com/cawooda/tech-blog/issues"
   },
-  "homepage": "https://github.com/cawooda/tech-blog#readme"
+  "homepage": "https://github.com/cawooda/tech-blog#readme",
+  "dependencies": {
+    "bulma": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-handlebars": "^7.1.2",
+    "handlebars": "^4.7.8",
+    "nodemon": "^3.1.1",
+    "path": "^0.12.7"
+  }
 }
