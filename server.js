@@ -1,42 +1,64 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const port = 3000;
 
 //helpers and utils
-const helpers = require('./utils/helpers')
-const path = require('path');
+const helpers = require("./utils/helpers");
+const path = require("path");
 
 //express
-const express = require('express');
-const app = express()
+const express = require("express");
+const app = express();
 
-//view engine
-const expressHandlebarsEngine = require('express-handlebars');
-const handlebars = expressHandlebarsEngine.create({helpers});
+//sessions
+const session = require("express-session");
+const { sess } = require("./config/connection");
 
-
-
-//aplies a "setting" defining the view engine as handlebars
-app.engine('handlebars', handlebars.engine);
- //This sets the view engine whhich the app will use when it calls render()
-app.set('view engine', 'handlebars');
-
+app.use(session(sess));
 
 //routes
-const router = require('./controller');
+const router = require("./controller");
 
+//view engine
+const expressHandlebarsEngine = require("express-handlebars");
+const handlebars = expressHandlebarsEngine.create({ helpers });
 
-//app.use(express.json);
-// app.use(express.urlencoded({extended:true}));
-app.use(express.static(path.join(__dirname,'public')));
-app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
+//aplies a "setting" defining the view engine as handlebars
+app.engine("handlebars", handlebars.engine);
+//This sets the view engine whhich the app will use when it calls render()
+app.set("view engine", "handlebars");
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/node_modules", express.static(path.join(__dirname, "node_modules")));
+
+//TESTING
+function testing(req, _res, next) {
+  console.log("testing");
+  console.log(process.env.TESTING);
+  if (process.env.TESTING) {
+    req.session.testing = true;
+    req.session.testData = {
+      first_name: "Andrew",
+      last_name: "Cawood",
+      email: "cawooda@gmail.com",
+      password: "Secret!123",
+    };
+  } else {
+    req.session.testing = false;
+  }
+  next();
+}
+
+app.use(testing);
 
 app.use(router);
-app.get('/',(req,res)=>{
-  console.log("server");
-  res.status(200).send("server OK");
-})
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}. http://localhost:${port}`)
-})
+  console.log(
+    `Example app listening on port ${port}. http://localhost:${port}`
+  );
+});
