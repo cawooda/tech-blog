@@ -1,11 +1,13 @@
 {{!-- {{log this}} --}}
 <div class="container content box">
-  <h2>Log In</h2>
+  <h2>Log in</h2>
   <form id="sign-up-form">
+
     <div class="field">
       <label class="label">Email</label>
       <div class="control has-icons-left has-icons-right">
-        <input id="email-input" class="input is-info" type="email" />
+        <input id="email-input" class="input is-info" type="email" {{#if testData}} value="{{testData.email}}"
+          {{/if}} />
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>
         </span>
@@ -18,11 +20,8 @@
     <div class="field">
       <label class="label">Password</label>
       <div class="control has-icons-left has-icons-right">
-        <input
-          id="password-input"
-          class="input password is-info"
-          type="password"
-        />
+        <input id="password-input" class="input password is-info" type="password" {{#if testData}}
+          value="{{testData.password}}" {{/if}} />
         <span class="icon is-small is-left">
           <i class="fas fa-key"></i>
         </span>
@@ -32,20 +31,15 @@
       </div>
     </div>
 
-    <div class="field">
-      <div class="control">
-        <label class="checkbox">
-          <input type="checkbox" />
-          Keep Me Logged In
-        </label>
-      </div>
-    </div>
-
     <div class="field is-grouped">
       <div class="control">
-        <button class="button is-link">Log In</button>
+        <button class="button is-link">Login</button>
+      </div>
+      <div class="control">
+        <button class="button is-link is-light">Cancel</button>
       </div>
     </div>
   </form>
 </div>
-<script src="/js/login.js"></script>
+
+<script src="/js/login-signup.js"></script>

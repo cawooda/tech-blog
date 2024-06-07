@@ -1,7 +1,6 @@
 require("dotenv").config();
 
-const port = 3000;
-
+const port = 3001;
 //helpers and utils
 const helpers = require("./utils/helpers");
 const path = require("path");
@@ -10,10 +9,25 @@ const path = require("path");
 const express = require("express");
 const app = express();
 
-//sessions
-const session = require("express-session");
-const { sess } = require("./config/connection");
+//sequelize
+const { sequelize } = require("./config/connection");
 
+//sessions
+//create express session
+const session = require("express-session");
+//create sequelize store for connecting express session to storage.
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+
+const sess = {
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 12000 },
+  //setup the storage of the session to be with Se..Store and referencing the database.
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
+};
 app.use(session(sess));
 
 //routes
@@ -32,8 +46,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "public")));
-
-app.use("/node_modules", express.static(path.join(__dirname, "node_modules")));
 
 //TESTING
 function testing(req, _res, next) {
@@ -57,8 +69,10 @@ app.use(testing);
 
 app.use(router);
 
-app.listen(port, () => {
-  console.log(
-    `Example app listening on port ${port}. http://localhost:${port}`
-  );
+sequelize.sync({ force: false }).then(() => {
+  app.listen(port, () => {
+    console.log(
+      `Example app listening on port ${port}. http://localhost:${port}`
+    );
+  });
 });

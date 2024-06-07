@@ -13,10 +13,4 @@ const sequelize = process.env.DB_URL
       }
     );
 
-const sess = {
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: false,
-};
-
-module.exports = { sequelize, sess };
+module.exports = { sequelize };

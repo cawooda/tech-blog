@@ -16,12 +16,20 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    body: {
+    content: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    likes: {
-      type: DataTypes.INTEGER,
+    img: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    img_alt: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    tags: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true,
       default: 0,
     },

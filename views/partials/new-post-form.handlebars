@@ -1,0 +1,22 @@
+{{!-- {{log this}} --}}
+<div class="container content box">
+  <h2>New Post</h2>
+  <form id="new-post-form">
+    <div class="field">
+      <label class="label">Title/label>
+        <div class="control">
+          <input id="title-input" class="input is-info" type="text" {{#if testData}} value="{{testData.title}}"
+            {{/if}} />
+        </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Content</label>
+      <div class="control">
+        <textarea id="content-input" class="input" type="text" {{#if testData}} value="{{testData.content}}" {{/if}} />
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="/js/new-post.js"></script>

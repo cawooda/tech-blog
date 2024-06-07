@@ -3,20 +3,19 @@ const termsAddress = process.env.TERMSADDRESS;
 console.log(termsAddress);
 
 const router = require("express").Router();
-const { RegisteredUser, Post } = require("../model");
+const { RegisteredUser, Post, Comment } = require("../model");
 
 const siteTitle = "Site Title";
 
 router.get("/", async (req, res) => {
-  console.log("home route reached, should call home layout");
-
   try {
-    const blogData = Post.findAll({
-      raw: true,
-      nest: true,
+    const postData = await Post.findAll({
+      include: { all: true, nested: true },
     });
 
-    return res.render("home", {
+    const posts = await postData.map((post) => post.get({ plain: true }));
+    res.render("home", {
+      posts: posts,
       siteTitle: siteTitle,
       testData: req.session.testing ? req.session.testData : false,
       loggedIn: req.session.loggedIn,
@@ -27,13 +26,22 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/posts", async (req, res) => {
-  console.log("home route reached, should call post layout");
-  const blogData = await Blog.findAll({ raw: true });
-  //Blog.findByPk(req.params.id,{raw:true});
-  return res.render("post", {
-    siteTitle: siteTitle,
-    pageTitle: "Post Page",
-  });
+  try {
+    const blogData = await Post.findAll({});
+
+    const blogs = await blogData.map((blogObject) =>
+      blogObject.get({ plain: true })
+    );
+    console.log(blogs);
+    res.render("home", {
+      posts: blogs,
+      siteTitle: siteTitle,
+      testData: req.session.testing ? req.session.testData : false,
+      loggedIn: req.session.loggedIn,
+      loggedOut: !req.session.loggedIn,
+      pageTitle: "Posts Page",
+    });
+  } catch (error) {}
 });
 
 router.get("/about", async (req, res) => {
@@ -56,7 +64,7 @@ router.get("/contact", async (req, res) => {
 });
 
 router.get("/signup", async (req, res) => {
-  return res.render("signup", {
+  return res.render("register-user", {
     termsAddress: termsAddress,
     siteTitle: siteTitle,
     testData: req.session.testing ? req.session.testData : false,
@@ -67,14 +75,19 @@ router.get("/signup", async (req, res) => {
 });
 
 router.get("/login", async (req, res) => {
-  const loggedIn = req.session.loggedIn;
-  return res.render("login", {
+  return res.render("login-user", {
     siteTitle: siteTitle,
     testData: req.session.testing ? req.session.testData : false,
     loggedIn: req.session.loggedIn,
     loggedOut: !req.session.loggedIn,
     pageTitle: "Login Page",
   });
+});
+
+router.get("/logout", async (req, res) => {
+  req.session.destroy();
+
+  res.redirect("/");
 });
 
 router.get("/terms-and-conditions", async (req, res) => {

@@ -1,3 +1,9 @@
+const dayjs = require("dayjs");
+
+function formatDate(date) {
+  return dayjs(date).format("DD-MMM-YYYY");
+}
+
 function validatePassword(password) {
   console.log("password", password);
   let regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
@@ -6,4 +12,4 @@ function validatePassword(password) {
   return result;
 }
 
-module.exports = { validatePassword };
+module.exports = { validatePassword, formatDate };
