@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const port = 3001;
+const port = 3000;
 //helpers and utils
 const helpers = require("./utils/helpers");
 const path = require("path");
@@ -22,7 +22,7 @@ const sess = {
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 12000 },
+  cookie: { maxAge: 200000 },
   //setup the storage of the session to be with Se..Store and referencing the database.
   store: new SequelizeStore({
     db: sequelize,

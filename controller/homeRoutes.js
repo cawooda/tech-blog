@@ -4,8 +4,11 @@ console.log(termsAddress);
 
 const router = require("express").Router();
 const { RegisteredUser, Post, Comment } = require("../model");
+const postRoute = require("./postRoutes");
 
 const siteTitle = "Site Title";
+
+router.use("/posts", postRoute);
 
 router.get("/", async (req, res) => {
   try {
@@ -21,25 +24,6 @@ router.get("/", async (req, res) => {
       loggedIn: req.session.loggedIn,
       loggedOut: !req.session.loggedIn,
       pageTitle: "Home Page",
-    });
-  } catch (error) {}
-});
-
-router.get("/posts", async (req, res) => {
-  try {
-    const blogData = await Post.findAll({});
-
-    const blogs = await blogData.map((blogObject) =>
-      blogObject.get({ plain: true })
-    );
-    console.log(blogs);
-    res.render("home", {
-      posts: blogs,
-      siteTitle: siteTitle,
-      testData: req.session.testing ? req.session.testData : false,
-      loggedIn: req.session.loggedIn,
-      loggedOut: !req.session.loggedIn,
-      pageTitle: "Posts Page",
     });
   } catch (error) {}
 });
@@ -99,6 +83,11 @@ router.get("/terms-and-conditions", async (req, res) => {
     loggedOut: !req.session.loggedIn,
     pageTitle: "Terms and Conditions",
   });
+});
+
+router.get("/", (req, res) => {
+  console.log("index of controller reached");
+  res.status(200).send("controller OK");
 });
 
 module.exports = router;

@@ -24,6 +24,9 @@ async function createUser(req, res, userDetails) {
 }
 
 async function loginUser(req, res, loginDetails) {
+  console.log("login function in user route run");
+  console.log("login details", loginDetails);
+  console.log("req.session.loggedIn", req.session.loggedIn);
   try {
     //finds the user based on password submitted in body
     const userData = await RegisteredUser.findOne({
@@ -47,8 +50,10 @@ async function loginUser(req, res, loginDetails) {
     }
 
     req.session.user_id = userData.id;
-    req.session.logged_in = true;
+    req.session.loggedIn = true;
     res.json({ message: "logged in.." });
+    console.log("login function in user route end");
+    console.log("req.session.loggedIn", req.session.loggedIn);
   } catch (error) {
     console.log("an error occurred", error);
 

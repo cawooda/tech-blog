@@ -1,4 +1,12 @@
 {{!-- {{log this}} --}}
+<div class="navbar-end">
+  {{#if loggedIn}}
+  {{>post-buttons}}
+  {{/if}}
+  {{#if loggedOut}}
+  {{>auth-buttons}}
+  {{/if}}
+</div>
 {{#if loggedIn}}
 {{#each posts as |post|}}
 <div class="container">
