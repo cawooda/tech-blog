@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const port = 3000;
+const PORT = process.env.PORT || 3001;
 //helpers and utils
 const helpers = require('./utils/helpers');
 const path = require('path');
