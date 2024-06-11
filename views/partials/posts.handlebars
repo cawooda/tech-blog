@@ -1,0 +1,55 @@
+{{log this}}
+{{#each posts as |post|}}
+<style>
+  .image img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+</style>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+    </div>
+    {{#if post.images.[0].location}}
+    <div class="card-image">
+      <figure class="image is-square">
+        <img src="{{post.images.[0].location}}" alt="{{post.img_alt}}" />
+      </figure>
+    </div>
+    {{/if}}
+    <div class="card-content">
+      <div class="media">
+        <div class="media-left">
+          <figure class="image is-48x48">
+            <img src="{{post.images.[0].location}}" alt="{{post.img_alt}}" />
+          </figure>
+        </div>
+        <div class="media-content">
+          <p class="title is-4">{{post.registeredUser.first_name}} {{post.registeredUser.last_name}}</p>
+        </div>
+      </div>
+
+      <div class="content container">
+        <h2>{{title}}</h2>
+
+        <p class="has-text-right is-size-7 has-text-weight-bold ">{{formatDate
+          createdAt}}
+        </p>
+        {{!-- {{#if loggedIn}} --}}
+        <a href='/posts/edit/{{post.id}}'> <button class='button fa-solid fa-post is-small'>edit</button></a>
+        <br />
+        {{!-- {{/if}} --}}
+        {{content}}
+        <br />
+
+        {{#each tags as |tag|}}
+        <a href="/tags">#{{tag}}</a>
+        {{/each}}
+        {{>comments}}
+      </div>
+    </div>
+  </div>
+</div>
+{{/each}}

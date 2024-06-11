@@ -1,35 +1,16 @@
-const $postForm = document.getElementById('new-post-form');
+const $postForm = document.getElementById('edit-post-form');
 console.log($postForm);
 const $titleInput = document.getElementById('title-input');
 const $contentInput = document.getElementById('content-input');
+const postId = $postForm.dataset.postId;
 
-const userId = $postForm.dataset.userId;
-
-console.log(userId);
-
-const FETCHURL = '/api/posts';
-
-const submitPost = async (userId, postDetails) => {
-	try {
-		const response = await fetch(FETCHURL, {
-			method: 'POST',
-			mode: 'same-origin',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(postDetails),
-		});
-		if (response.ok) console.log('successfully created post');
-		window.location.href = '../posts';
-	} catch (error) {
-		console.error(error);
-	}
-};
+const FETCHURL = `/api/posts/edit/${postId}`;
+console.log('fetch url', FETCHURL);
 
 async function sendData(data, file) {
 	try {
 		const formData = new FormData();
-		console.log(data);
+
 		for (const name in data) {
 			formData.append(name, data[name]);
 		}
@@ -37,11 +18,11 @@ async function sendData(data, file) {
 			formData.append('upload', file);
 		}
 		const response = await fetch(FETCHURL, {
-			method: 'POST',
+			method: 'PUT',
 			body: formData,
 		});
-		if (response.ok) console.log('successfully created post');
-		window.location.href = '../posts';
+		if (response.ok) console.log('successfully updated post');
+		window.location.href = '../';
 	} catch (error) {
 		console.log(error);
 	}
@@ -49,18 +30,17 @@ async function sendData(data, file) {
 
 $postForm.addEventListener('submit', (event) => {
 	const file = document.getElementById('file-input').files[0];
-
+	const userId = $postForm.dataset.userId;
+	console.log(userId);
 	event.preventDefault();
-	if (!userId) {
-		console.log(userId);
-		return;
-	}
+
 	const postDetails = {
+		id: postId,
 		title: $titleInput.value,
 		content: $contentInput.value,
 		user_id: userId,
 	};
-	console.log(postDetails);
+
 	sendData(postDetails, file);
 	//submitPost(userId, postDetails);
 });

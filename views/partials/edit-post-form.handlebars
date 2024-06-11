@@ -1,18 +1,18 @@
 {{log this}}
 <div class="container content box">
   <h2>New Post</h2>
-  <form data-user-id="{{user_id}}" id="new-post-form">
+  <form data-userId="{{user_id}}" data-post-id='{{post.id}}' id="edit-post-form">
     <div class="field">
       <label class="label">Post Title</label>
       <div class="control">
-        <input id="title-input" class="input is-info" type="text" />
+        <input id="title-input" class="input is-info" type="text" value="{{post.title}}" />
       </div>
     </div>
 
     <div class="field">
       <label class="label">Content</label>
       <div class="control">
-        <textarea id="content-input" class="textarea" rows="10" type="text"></textarea>
+        <textarea id="content-input" class="textarea" rows="10" type="text">{{post.content}}</textarea>
       </div>
     </div>
 
@@ -23,10 +23,10 @@
       </div>
     </div>
 
-    <button id="new-post-btn" class="button is-primary">Submit</button>
+    <button id="edit-post-btn" class="button is-primary">Submit</button>
 </div>
 
 </form>
 </div>
 
-<script src="/js/new-post.js"></script>
+<script src="/js/edit-post.js"></script>

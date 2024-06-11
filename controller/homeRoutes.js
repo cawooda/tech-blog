@@ -6,7 +6,7 @@ const router = require('express').Router();
 const { RegisteredUser, Post, Comment } = require('../model');
 const postRoute = require('./postRoutes');
 
-const siteTitle = 'Site Title';
+const siteTitle = 'Tech Blog';
 
 router.use('/posts', postRoute);
 
@@ -14,9 +14,11 @@ router.get('/', async (req, res) => {
 	try {
 		const postData = await Post.findAll({
 			include: { all: true, nested: true },
+			order: [['created_at', 'DESC']],
 		});
 
 		const posts = await postData.map((post) => post.get({ plain: true }));
+
 		res.render('home', {
 			posts: posts,
 			siteTitle: siteTitle,
