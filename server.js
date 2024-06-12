@@ -49,7 +49,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //TESTING
 function testing(req, _res, next) {
-	console.log('testing');
 	console.log(process.env.TESTING);
 	if (process.env.TESTING) {
 		req.session.testing = true;
