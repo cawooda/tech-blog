@@ -19,25 +19,14 @@ const session = require("express-session");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const sess = {
-<<<<<<< HEAD
-	secret: process.env.SECRET,
-	resave: false,
-	saveUninitialized: false,
-	cookie: { maxAge: 2000000 },
-	//setup the storage of the session to be with Se..Store and referencing the database.
-	store: new SequelizeStore({
-		db: sequelize,
-	}),
-=======
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 200000 },
+  cookie: { maxAge: 2000000 },
   //setup the storage of the session to be with Se..Store and referencing the database.
   store: new SequelizeStore({
     db: sequelize,
   }),
->>>>>>> parent of fb874ba (ter)
 };
 app.use(session(sess));
 
@@ -60,21 +49,20 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //TESTING
 function testing(req, _res, next) {
-<<<<<<< HEAD
-	console.log(process.env.TESTING);
-	if (process.env.TESTING) {
-		req.session.testing = true;
-		req.session.testData = {
-			first_name: 'Andrew',
-			last_name: 'Cawood',
-			email: 'cawooda@gmail.com',
-			password: 'Secret!123',
-		};
-	} else {
-		req.session.testing = false;
-	}
-	next();
-=======
+  console.log(process.env.TESTING);
+  if (process.env.TESTING) {
+    req.session.testing = true;
+    req.session.testData = {
+      first_name: "Andrew",
+      last_name: "Cawood",
+      email: "cawooda@gmail.com",
+      password: "Secret!123",
+    };
+  } else {
+    req.session.testing = false;
+  }
+  next();
+
   console.log("testing");
   console.log(process.env.TESTING);
   if (process.env.TESTING) {
@@ -89,7 +77,6 @@ function testing(req, _res, next) {
     req.session.testing = false;
   }
   next();
->>>>>>> parent of fb874ba (ter)
 }
 
 app.use(testing);
@@ -97,17 +84,9 @@ app.use(testing);
 app.use(router);
 
 sequelize.sync({ force: false }).then(() => {
-<<<<<<< HEAD
-	app.listen(PORT, () => {
-		console.log(
-			`Example app listening on port ${PORT}. http://localhost:${PORT}`,
-		);
-	});
-=======
-  app.listen(port, () => {
+  app.listen(PORT, () => {
     console.log(
-      `Example app listening on port ${port}. http://localhost:${port}`
+      `Example app listening on port ${PORT}. http://localhost:${PORT}`
     );
   });
->>>>>>> parent of fb874ba (ter)
 });
