@@ -1,31 +1,35 @@
-const $postForm = document.getElementById('new-post-form');
-console.log($postForm);
-const $titleInput = document.getElementById('title-input');
-const $contentInput = document.getElementById('content-input');
+const $postForm = document.getElementById("new-post-form");
+
+const $titleInput = document.getElementById("title-input");
+const $contentInput = document.getElementById("content-input");
 
 const userId = $postForm.dataset.userId;
+<<<<<<< HEAD
 
 console.log(userId);
+=======
+>>>>>>> parent of fb874ba (ter)
 
-const FETCHURL = '/api/posts';
+const FETCHURL = "/api/posts";
 
 const submitPost = async (userId, postDetails) => {
-	try {
-		const response = await fetch(FETCHURL, {
-			method: 'POST',
-			mode: 'same-origin',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(postDetails),
-		});
-		if (response.ok) console.log('successfully created post');
-		window.location.href = '../posts';
-	} catch (error) {
-		console.error(error);
-	}
+  try {
+    const response = await fetch(FETCHURL, {
+      method: "POST",
+      mode: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postDetails),
+    });
+    if (response.ok) console.log("successfully created post");
+    window.location.href = "../posts";
+  } catch (error) {
+    console.error(error);
+  }
 };
 
+<<<<<<< HEAD
 async function sendData(data, file) {
 	try {
 		const formData = new FormData();
@@ -63,4 +67,15 @@ $postForm.addEventListener('submit', (event) => {
 	console.log(postDetails);
 	sendData(postDetails, file);
 	//submitPost(userId, postDetails);
+=======
+$postForm.addEventListener("submit", (event) => {
+  console.log($contentInput.value);
+  event.preventDefault();
+  const postDetails = {
+    title: $titleInput.value,
+    content: $contentInput.value,
+    user_id: userId,
+  };
+  submitPost(userId, postDetails);
+>>>>>>> parent of fb874ba (ter)
 });
